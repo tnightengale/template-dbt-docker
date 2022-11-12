@@ -1,0 +1,94 @@
+{
+	"name": "template_dbt_docker",
+	// Sets the run context to one level up instead of the .devcontainer folder.
+	// Update the 'dockerFile' property if you aren't using the standard
+	// 'Dockerfile' filename.
+	"build": {
+		"dockerfile": "../Dockerfile",
+		"context": "..",
+		"target": "dev_container"
+	},
+	// Check architecture of the host machine before building the
+	// `docker-from-docker` stage of the dev container.
+	"initializeCommand": [
+		"./scripts/dev_container.sh", "initialize"
+	],
+	// Set *default* container specific settings.json values on container create.
+	"runArgs": [
+		"--env-file",
+		".env"
+	],
+	// VS Code User Settings Inside the Remote Container
+	"settings": {
+		"files.insertFinalNewline": true,
+		"files.trimFinalNewlines": true,
+		"files.trimTrailingWhitespace": true,
+		"files.associations": {
+			"/code/dbt/models/target/**/*.sql": "sql"
+		},
+		"terminal.integrated.cwd": "/code/dbt",
+		"python.pythonPath": "/usr/local/bin/python",
+		"editor.formatOnSave": false,
+		"editor.quickSuggestions": {
+			"strings": true
+		},
+		"extensions.autoUpdate": false,
+		"extensions.autoCheckUpdates": false,
+		// SQLTools is a VS Code native SQL Workbench extension
+		"sqltools.autoOpenSessionFiles": false,
+		"sqltools.results.reuseTabs": "connection",
+		// Provide a connection to a warehouse so the SQLTools Client
+		// can connect from within the dev container
+		"sqltools.connections": [
+			{
+				"authenticator": "SNOWFLAKE",
+				"ocspOptions": {
+				  "ocspFailOpen": true
+				},
+				"snowflakeOptions": {
+				  "clientSessionKeepAlive": true,
+				  "clientSessionKeepAliveHeartbeatFrequency": 3600
+				},
+				"previewLimit": 50,
+				"driver": "Snowflake",
+				"group": "Snowflake",
+				"name": "<your_connection_name>",
+				"account": "<updated_with_post_attach_command>",
+				"username": "<updated_with_post_attach_command>",
+				"password": "<updated_with_post_attach_command>",
+				"database": "<updated_with_post_attach_command>",
+				"warehouse": "<updated_with_post_attach_command>"
+			  }
+		]
+	},
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"eamodio.gitlens@12.2.2",
+		"ms-python.python",
+		// For a VS Code warehouse connection - see results in the warehouse
+		// from the devcontainer
+		"mtxr.sqltools@0.25.1",
+		"koszti.snowflake-driver-for-sqltools@0.4.2",
+		// For go-to-definition in dbt
+		"innoverio.vscode-dbt-power-user@0.6.2",
+		// For documentation
+		"stkb.rewrap@1.16.3",
+		"yzhang.markdown-all-in-one@3.4.3",
+		"streetsidesoftware.code-spell-checker@2.11.10"
+	],
+	"workspaceMount": "source=${localWorkspaceFolder}/,target=/code,type=bind,consistency=cached",
+	"workspaceFolder": "/code",
+	"mounts": [
+		// Forwards the hosts Docker socket for 'Docker from Docker' functionality
+		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
+		// Copy in the .ssh keys from host for use with git, if applicable
+		"source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind",
+		// Create a dev-container-extensions docker volume to avoid re-installing
+		// extensions on rebuilds of the dev container. See here for more
+		// information: https://bit.ly/3EBcadH
+		"source=dev-container-extensions,target=/root/.vscode-server/extensions,type=volume"
+	],
+	"postAttachCommand": [
+		"./scripts/dev_container.sh", "post_attach"
+	]
+}

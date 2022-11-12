@@ -1,0 +1,13 @@
+template_dbt_docker:
+  outputs:
+    dev:
+      account: "{{ env(SNOWFLAKE_ACCOUNT) }}"
+      database: "{{ env(SNOWFLAKE_DATABASE) }}"
+      password: "{{ env(SNOWFLAKE_PASSWORD) }}"
+      role: "{{ env(SNOWFLAKE_ROLE) }}"
+      schema: "{{ env(SNOWFLAKE_SCHEMA) }}"
+      threads: 4
+      type: snowflake
+      user: "{{ env(SNOWFLAKE_USER) }}"
+      warehouse: "{{ env(SNOWFLAKE_WAREHOUSE) }}"
+  target: dev
