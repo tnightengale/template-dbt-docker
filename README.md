@@ -1,6 +1,6 @@
 # dbt & VS Code Dev Containers <!-- omit in toc -->
 A template for [dbt-Core](https://docs.getdbt.com/docs/introduction) projects inside of [docker](https://docs.docker.com/get-started/),
-using [poetry](https://python-poetry.org) to manage dependencies and VS Code [dev containers](https://code.visualstudio.com/docs/remote/containers) for local development.
+using [poetry](https://python-poetry.org) to manage dependencies and VS Code [Dev Containers](https://code.visualstudio.com/docs/remote/containers) for local development.
 
 ## Table of Contents <!-- omit in toc -->
 - [Overview](#overview)
@@ -9,7 +9,7 @@ using [poetry](https://python-poetry.org) to manage dependencies and VS Code [de
 - [Contributions](#contributions)
 
 ## Overview
-VS Code [dev containers](https://code.visualstudio.com/docs/remote/containers) provide an
+VS Code [Dev Containers](https://code.visualstudio.com/docs/devcontainers/containers) provide an
 immediate development environment for teams to manage their [dbt-Core](https://github.com/dbt-labs/dbt-core/pkgs/container/dbt-core) project.
 
 A dockerized dbt environment allows for a consistent runtime across
@@ -17,7 +17,7 @@ contributors and orchestration tools: the versions, packages, scripts and behavi
 
 Examples of possible changes to the environment are:
 - package versions controlled with poetry
-- VS Code extensions (versions, included extentions) 
+- VS Code extensions (versions, included extensions) 
 - other scripts (eg. CI scripts that can be run locally)
 - CLI tools like aws, git, etc
 
@@ -29,7 +29,7 @@ Complete the following steps to launch the dev container in VS Code:
 
 1. Download [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 2. Download [VS Code](https://code.visualstudio.com/download).
-3. Install the [VS Code Remote Containers Extension](https://code.visualstudio.com/docs/remote/containers-tutorial).
+3. Install the [VS Code Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
 4. Open the project in VS Code and click "Repoen in Container" when prompted.
 
 ## Configuring the Template
@@ -51,22 +51,22 @@ use cases:
    dependencies in the container.
 - The [scripts/](scripts/) folder can be used to house build and pipeline
   scripts.
-- The [.devcontainer.json](.devcontainer/devcontainer.json) contains
+- The [devcontainer.json](.devcontainer/devcontainer.json) contains
    recommended VS Code extensions for development.
    - These are cached by default
-   in a docker volume for fast rebuilds of the environment.
+   in a docker volume for fast rebuilds of the Dev Container.
     - The
      [SQLTools](https://marketplace.visualstudio.com/items?itemName=mtxr.sqltools)
      extension is setup with a Snowflake connection by default.
       - The connection uses params in `.example.env` which are injected by the
-     `postAttachCommand` in the [.devcontainer.json](.devcontainer/devcontainer.json).
+     `postAttachCommand` in the [devcontainer.json](.devcontainer/devcontainer.json).
       - SQLTools connections allow viewing and querying data in the warehouse
         directly from the VS Code dev container.
       - dbt models can be created in the warehouse and the data viewed from within
         VS Code to accelerate development.
 
 ## Contributions
-Please reach out and starta discussion if you are interested in enhancing or
+Please reach out and start a discussion if you are interested in enhancing or
 altering this
 template.
 
