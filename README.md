@@ -25,7 +25,7 @@ These changes can be made through changes to the relevant files. Simply
 rebuilding the container will allow every team member and tool to use the new environment.
 
 ## Getting Started
-Complete the following steps to launch the dev container in VS Code:
+Complete the following steps to launch the Dev Container in VS Code:
 
 1. Download [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 2. Download [VS Code](https://code.visualstudio.com/download).
@@ -61,7 +61,7 @@ use cases:
       - The connection uses params in `.example.env` which are injected by the
      `postAttachCommand` in the [devcontainer.json](.devcontainer/devcontainer.json).
       - SQLTools connections allow viewing and querying data in the warehouse
-        directly from the VS Code dev container.
+        directly from the VS Code Dev Container.
       - dbt models can be created in the warehouse and the data viewed from within
         VS Code to accelerate development.
 
