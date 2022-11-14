@@ -1,8 +1,6 @@
 # dbt & VS Code Dev Containers <!-- omit in toc -->
-A templated starting point for developing
-[dbt](https://docs.getdbt.com/docs/introduction) projects, using
-[poetry](https://python-poetry.org) to manage dependencies and
-[docker](https://docs.docker.com/get-started/) for environment consistency.
+A template for [dbt-Core](https://docs.getdbt.com/docs/introduction) projects inside of [docker](https://docs.docker.com/get-started/),
+using [poetry](https://python-poetry.org) to manage dependencies and VS Code [dev containers](https://code.visualstudio.com/docs/remote/containers) for local development.
 
 ## Table of Contents <!-- omit in toc -->
 - [Overview](#overview)
@@ -15,10 +13,16 @@ VS Code [dev containers](https://code.visualstudio.com/docs/remote/containers) p
 immediate development environment for teams to manage their [dbt-Core](https://github.com/dbt-labs/dbt-core/pkgs/container/dbt-core) project.
 
 A dockerized dbt environment allows for a consistent runtime across
-contributors and orchestration tools.
+contributors and orchestration tools: the versions, packages, scripts and behavior of a dbt-Core project are identical whether the project is run locally or deployed.
 
-Any changes to the environment can be codified in git and propagated to all
-developers and tools by rebuilding the container.
+Examples of possible changes to the environment are:
+- package versions controlled with poetry
+- VS Code extensions (versions, included extentions) 
+- other scripts (eg. CI scripts that can be run locally)
+- CLI tools like aws, git, etc
+
+These changes can be made through changes to the relevant files. Simply
+rebuilding the container will allow every team member and tool to use the new environment.
 
 ## Getting Started
 Complete the following steps to launch the dev container in VS Code:
@@ -47,7 +51,7 @@ use cases:
    dependencies in the container.
 - The [scripts/](scripts/) folder can be used to house build and pipeline
   scripts.
-- The [.dev container.json](.dev container/dev container.json) contains
+- The [.devcontainer.json](.devcontainer/devcontainer.json) contains
    recommended VS Code extensions for development.
    - These are cached by default
    in a docker volume for fast rebuilds of the environment.
@@ -55,14 +59,15 @@ use cases:
      [SQLTools](https://marketplace.visualstudio.com/items?itemName=mtxr.sqltools)
      extension is setup with a Snowflake connection by default.
       - The connection uses params in `.example.env` which are injected by the
-     `postAttachCommand` in the [.dev container.json](.dev container/dev container.json).
+     `postAttachCommand` in the [.devcontainer.json](.devcontainer/devcontainer.json).
       - SQLTools connections allow viewing and querying data in the warehouse
         directly from the VS Code dev container.
       - dbt models can be created in the warehouse and the data viewed from within
         VS Code to accelerate development.
 
 ## Contributions
-Please reach out and starta discussion if you are interested in enhancing this
+Please reach out and starta discussion if you are interested in enhancing or
+altering this
 template.
 
 You can find the author in the [dbt
